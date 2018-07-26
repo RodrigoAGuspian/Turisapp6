@@ -5,6 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.aprendiz.ragp.turisapp6.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +50,9 @@ public class AdapterT extends RecyclerView.Adapter<AdapterT.Holder>{
     }
 
     public class Holder extends RecyclerView.ViewHolder {
+        TextView txtNombre;
+        TextView txtUbicacion;
+        TextView txtDescripcion;
         public Holder(View itemView, final OnItemClickListener listerner) {
             super(itemView);
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +69,9 @@ public class AdapterT extends RecyclerView.Adapter<AdapterT.Holder>{
         }
 
         public void connectData(){
+            if (item== R.layout.item_land){
 
+            }
         }
     }
 }
