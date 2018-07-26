@@ -1,6 +1,7 @@
 package com.aprendiz.ragp.turisapp6.fragments;
 
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -17,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aprendiz.ragp.turisapp6.R;
+import com.aprendiz.ragp.turisapp6.controllers.Detalle;
+import com.aprendiz.ragp.turisapp6.controllers.MenuT;
 import com.aprendiz.ragp.turisapp6.models.AdapterT;
 import com.aprendiz.ragp.turisapp6.models.GestorDB;
 import com.aprendiz.ragp.turisapp6.models.Lugares;
@@ -100,6 +103,9 @@ public class FragmentRestaurantes extends Fragment {
                     @Override
                     public void itemClick(int position) {
                         lugares = lugaresList.get(position);
+                        MenuT.lugares =lugares;
+                        Intent intent = new Intent(getActivity(), Detalle.class);
+                        startActivity(intent);
                     }
                 });
             }else {
@@ -112,6 +118,9 @@ public class FragmentRestaurantes extends Fragment {
                     @Override
                     public void itemClick(int position) {
                         lugares = lugaresList.get(position);
+                        MenuT.lugares =lugares;
+                        Intent intent = new Intent(getActivity(), Detalle.class);
+                        startActivity(intent);
                     }
                 });
             }
