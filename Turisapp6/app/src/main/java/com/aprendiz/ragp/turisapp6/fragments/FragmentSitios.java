@@ -1,19 +1,30 @@
 package com.aprendiz.ragp.turisapp6.fragments;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.aprendiz.ragp.turisapp6.R;
+import com.aprendiz.ragp.turisapp6.models.AdapterT;
+import com.aprendiz.ragp.turisapp6.models.GestorDB;
+import com.aprendiz.ragp.turisapp6.models.Lugares;
+
+import java.util.List;
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link FragmentSitios.OnFragmentInteractionListener} interface
+
  * to handle interaction events.
  * Use the {@link FragmentSitios#newInstance} factory method to
  * create an instance of this fragment.
@@ -28,21 +39,17 @@ public class FragmentSitios extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+    RecyclerView recyclerView;
+
+    int position;
+    public static Lugares lugares = new Lugares();
+    int valor;
 
     public FragmentSitios() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentSitios.
-     */
-    // TODO: Rename and change types and number of parameters
+
     public static FragmentSitios newInstance(String param1, String param2) {
         FragmentSitios fragment = new FragmentSitios();
         Bundle args = new Bundle();
@@ -65,45 +72,69 @@ public class FragmentSitios extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragment_sitios, container, false);
+        View view = inflater.inflate(R.layout.fragment_fragment_sitios, container, false);
+
+        recyclerView = view.findViewById(R.id.recyclerView);
+        inputAdapter(view);
+
+        return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+
+    private void inputAdapter(View view) {
+        GestorDB gestorDB = new GestorDB(getContext());
+        final List<Lugares> lugaresList = gestorDB.sitiosList();
+        position= getActivity().getWindowManager().getDefaultDisplay().getRotation();
+        if (position== Surface.ROTATION_0 || position==Surface.ROTATION_180) {
+            if (valor==0) {
+                AdapterT adapterT = new AdapterT(lugaresList, getContext(), R.layout.item_list);
+                recyclerView.setAdapter(adapterT);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+                recyclerView.setHasFixedSize(true);
+                adapterT.setMlisterner(new AdapterT.OnItemClickListener() {
+                    @Override
+                    public void itemClick(int position) {
+                        lugares = lugaresList.get(position);
+                    }
+                });
+            }else {
+
+                AdapterT adapterT = new AdapterT(lugaresList, getContext(), R.layout.item_list);
+                recyclerView.setAdapter(adapterT);
+                recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2,GridLayoutManager.VERTICAL, false));
+                recyclerView.setHasFixedSize(true);
+                adapterT.setMlisterner(new AdapterT.OnItemClickListener() {
+                    @Override
+                    public void itemClick(int position) {
+                        lugares = lugaresList.get(position);
+                    }
+                });
+            }
         }
-    }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+        if (position== Surface.ROTATION_270 || position==Surface.ROTATION_90) {
+            final ImageView imagenL = view.findViewById(R.id.imagenLand);
+            final TextView txtDescripcion = view.findViewById(R.id.txtDescripcionLand);
+
+            AdapterT adapterT = new AdapterT(lugaresList, getContext(), R.layout.item_land);
+            recyclerView.setAdapter(adapterT);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+            recyclerView.setHasFixedSize(true);
+            adapterT.setMlisterner(new AdapterT.OnItemClickListener() {
+                @Override
+                public void itemClick(int position) {
+                    lugares = lugaresList.get(position);
+                    BitmapFactory.Options op = new BitmapFactory.Options();
+                    op.inSampleSize=3;
+                    Bitmap bitmap = BitmapFactory.decodeResource(getActivity().getResources(),lugares.getImagen(),op);
+                    imagenL.setImageBitmap(bitmap);
+                    txtDescripcion.setText(lugares.getDescripcion());
+
+                }
+            });
         }
+
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
 }

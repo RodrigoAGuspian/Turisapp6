@@ -3,6 +3,7 @@ package com.aprendiz.ragp.turisapp6.controllers;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +15,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.aprendiz.ragp.turisapp6.R;
+import com.aprendiz.ragp.turisapp6.fragments.FragmentHoteles;
+import com.aprendiz.ragp.turisapp6.fragments.FragmentRestaurantes;
+import com.aprendiz.ragp.turisapp6.fragments.FragmentSitios;
 
 public class MenuT extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -79,14 +83,22 @@ public class MenuT extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+        Fragment fragment;
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
+            fragment = new FragmentHoteles();
+            getSupportFragmentManager().beginTransaction().replace(R.id.contenedor,fragment).commit();
+
         } else if (id == R.id.nav_gallery) {
+            fragment = new FragmentRestaurantes();
+            getSupportFragmentManager().beginTransaction().replace(R.id.contenedor,fragment).commit();
 
         } else if (id == R.id.nav_slideshow) {
+            fragment = new FragmentSitios();
+            getSupportFragmentManager().beginTransaction().replace(R.id.contenedor,fragment).commit();
 
         } else if (id == R.id.nav_manage) {
 
