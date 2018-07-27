@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.aprendiz.ragp.turisapp6.R;
+import com.aprendiz.ragp.turisapp6.controllers.MenuT;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -99,8 +100,8 @@ public class Todos extends FragmentActivity implements OnMapReadyCallback {
 
         miUbicacion();
 
-        LatLng sydney1 = new LatLng(   MenuT.lu);
-        mMap.addMarker(new MarkerOptions().position(sydney1).title("Marker in Sydney"));
+        LatLng sydney1 = new LatLng(MenuT.lugares.getLatitud() , MenuT.lugares.getLongitud());
+        mMap.addMarker(new MarkerOptions().position(sydney1).title(MenuT.lugares.getNombre()));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney1));
 
         String url = getRequestUrl(new LatLng(location.getLatitude(),location.getLongitude()), sydney1);
