@@ -22,7 +22,7 @@ public class GestorDB extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE LUGARES (IMAGEN INTEGER, NOMBRE TEXT, DESCRIPCIONC TEXT, UBICACION TEXT, DESCRIPCION TEXT, LATITUD INTEGER, LONGITUD TEXT, LUGAR TEXT);");
+        db.execSQL("CREATE TABLE LUGARES (IMAGEN INTEGER, NOMBRE TEXT, DESCRIPCIONC TEXT, UBICACION TEXT, DESCRIPCION TEXT, LATITUD INTEGER, LONGITUD INTEGER, LUGAR TEXT);");
     }
 
     @Override
@@ -118,9 +118,9 @@ public class GestorDB extends SQLiteOpenHelper{
                 lugares.setDescripcionc(cursor.getString(2));
                 lugares.setUbicacion(cursor.getString(3));
                 lugares.setDescripcion(cursor.getString(4));
-                lugares.setLatitud(Float.parseFloat(cursor.getString(5)));
-                lugares.setLongitud(Float.parseFloat(cursor.getString(5)));
-                lugares.setLugar(cursor.getString(5));
+                lugares.setLatitud(cursor.getDouble(5));
+                lugares.setLongitud(cursor.getDouble(6));
+                lugares.setLugar(cursor.getString(7));
                 results.add(lugares);
             }while (cursor.moveToNext());
         }
@@ -142,9 +142,9 @@ public class GestorDB extends SQLiteOpenHelper{
                 lugares.setDescripcionc(cursor.getString(2));
                 lugares.setUbicacion(cursor.getString(3));
                 lugares.setDescripcion(cursor.getString(4));
-                lugares.setLatitud(Float.parseFloat(cursor.getString(5)));
-                lugares.setLongitud(Float.parseFloat(cursor.getString(5)));
-                lugares.setLugar(cursor.getString(5));
+                lugares.setLatitud(cursor.getDouble(5));
+                lugares.setLongitud(cursor.getDouble(6));
+                lugares.setLugar(cursor.getString(7));
                 results.add(lugares);
             }while (cursor.moveToNext());
         }
@@ -166,9 +166,9 @@ public class GestorDB extends SQLiteOpenHelper{
                 lugares.setDescripcionc(cursor.getString(2));
                 lugares.setUbicacion(cursor.getString(3));
                 lugares.setDescripcion(cursor.getString(4));
-                lugares.setLatitud(Float.parseFloat(cursor.getString(5)));
-                lugares.setLongitud(Float.parseFloat(cursor.getString(5)));
-                lugares.setLugar(cursor.getString(5));
+                lugares.setLatitud(cursor.getDouble(5));
+                lugares.setLongitud(cursor.getDouble(6));
+                lugares.setLugar(cursor.getString(7));
                 results.add(lugares);
             }while (cursor.moveToNext());
         }

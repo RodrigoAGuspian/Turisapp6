@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aprendiz.ragp.turisapp6.R;
 import com.aprendiz.ragp.turisapp6.maps.Todos;
